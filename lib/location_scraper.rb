@@ -16,6 +16,7 @@ class LocationScraper
 
     def page_scrape(page)
         doc = Nokogiri::HTML5(URI.open(page))
+        binding.pry
         doc.css(".main-block a").each do |lk| #pull all links from main body 
           j = lk.attribute("href").text #look at only the url text
           case j.split("/").length 
@@ -27,6 +28,10 @@ class LocationScraper
             @loc_pages << j
           end
         end
+        rescue OpenURI::HTTPError => e
+            #if e.message == '404 Not Found'
+            #    puts "404"
+            #end
       end
 
     #when running a store, the first table of links will
