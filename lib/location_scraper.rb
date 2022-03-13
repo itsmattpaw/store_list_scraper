@@ -29,4 +29,31 @@ class LocationScraper
         end
       end
 
+    #when running a store, the first table of links will
+    #only ever be states, cities, or locations. On state pages,
+    #cities will be picked up at the bottom and need to be removed
+    #clean_out will determine next steps and de-duplicate arrays
+    #clean_out can only be used after the first pass
+      def clean_out
+        @state_pages.uniq!
+        @city_pages.uniq!
+        @loc_pages.uniq!
+        if @state_pages.length > 0 #if state links avaliable, clean other arrays and scrape each state
+            @city_pages.clear
+            @loc_pages.clear
+            linked_page_scrape(@state_pages)
+        elsif @city_pages.length > 0
+            linked_page_scrape(@city_pages)
+        elsif @loc_pages.length > 0
+            #create stores
+        end
+
+      end
+
+      def linked_page_scrape(array)
+        array.each do |page|
+          page_scrape("#{@base}#{page}")
+        end
+      end
+
 end
