@@ -2,16 +2,14 @@ require 'nokogiri'
 require 'open-uri'
 require 'pry'
 
-class LocationScraper 
-    attr_accessor :link, :state_pages, :city_pages, :loc_pages
+class UpdateScraper 
+    attr_accessor :letters, :pages
     attr_reader :base
 
-    def initialize(link)
-        @link = link
+    def initialize
         @base = 'https://storefound.org/'
-        @state_pages = []
-        @city_pages = []
-        @loc_pages = []
+        @letters = [] #array of links for each letter group
+        @pages = [] #array to store pages for each letter
     end
-    
+
 end
