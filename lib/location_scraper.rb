@@ -47,12 +47,26 @@ class LocationScraper
         elsif @loc_pages.length > 0
             #create stores
         end
-
       end
 
       def linked_page_scrape(array)
         array.each do |page|
           page_scrape("#{@base}#{page}")
+        end
+      end
+
+      def create_stores
+        @loc_pages.each do |loc|
+          loc = Nokogiri::HTML5(URI.open("#{@base}#{loc}"))
+            j = loc.css("li span")
+            info = {
+              idnum: i,
+              address: j[0].text,
+              city: j[1].text,
+              state: j[2].text,
+              zip: j[3].text
+            }
+            Store.new(info)
         end
       end
 
