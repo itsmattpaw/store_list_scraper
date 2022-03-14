@@ -70,6 +70,7 @@ class CommandLineInterface
         puts "⊙﹏⊙"
         puts "Running update, this could take several minutes.."
         #run update scrape
+        UpdateScraper.new
     end
 
 end
