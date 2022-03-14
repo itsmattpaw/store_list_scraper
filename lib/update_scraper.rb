@@ -1,6 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
-require 'CSV'
+require 'csv'
 require 'pry'
 
 class UpdateScraper 
@@ -53,5 +53,3 @@ class UpdateScraper
         end
     end
 end
-
-UpdateScraper.new

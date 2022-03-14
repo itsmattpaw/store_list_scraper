@@ -7,6 +7,7 @@ require 'pry'
 class CommandLineInterface
 
     def start #greet user with menu
+        puts ""
         puts "Hello user! ヽ(‘ ∇‘ )ノ"
         menu
     end
@@ -52,8 +53,14 @@ class CommandLineInterface
         else  
             #check business list for name
             link = CSVexport.business_list_check(input)
-            if CSVexport.business_list_check(input) != nil
+            if link != nil
                 #run scrape on business
+                puts ""
+                puts "( ﾟヮﾟ)"
+                puts link
+                puts "Found the business! Want me to scrape a list? (y/n)"
+                confimation = gets.strip
+                confimation == 'y' ? LocationScraper.new(link) : exit
             else  
                 puts ""
                 puts "(●_●)"
