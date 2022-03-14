@@ -76,8 +76,25 @@ class CommandLineInterface
         a = LocationScraper.new("#{LocationScraper.base}#{link}")
         a.page_scrape(a.link)
         a.clean_out
+        puts ""
+        puts "( ◕‿◕)"
         puts "I found #{a.loc_pages.length} locations for this business."
-        puts "Would you like to export?"
+        puts "Would you like to export? (y/n)"
+        confirmation = gets.strip
+        if confirmation == 'y'
+            puts ""
+            puts "(°ロ°)☝"
+            puts "Exporting now, this can take awhile. I will alert when done."
+            a.create_stores
+            CSVexport.locations_export("test")
+            puts "Export Completed Successfully!"
+        else
+            puts ""
+            puts "(⌐■_■)ノ"
+            puts "I hope you have a great day!"
+            puts "Goodbye"
+            exit
+        end
     end
 
     def list_update

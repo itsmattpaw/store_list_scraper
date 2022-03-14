@@ -64,6 +64,7 @@ class LocationScraper
       end
 
       def create_stores
+        i = 1
         @loc_pages.each do |loc|
           loc = Nokogiri::HTML5(URI.open("#{@@base}#{loc}"))
             j = loc.css("li span")
@@ -75,6 +76,7 @@ class LocationScraper
               zip: j[3].text
             }
             Store.new(info)
+            i += 1
         end
       end
 
