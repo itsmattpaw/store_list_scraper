@@ -17,8 +17,11 @@ class UpdateScraper
     end
 
     def letters_scrape
-
         #scrape all main links for letters group
+        doc = Nokogiri::HTML5(URI.open('https://storefound.org/store/starts-a/page-1'))
+        doc.css('.letter-block a').each do |lk|
+            @pages << lk.attribute('href').text
+        end
     end
 
     def pages_scrape
@@ -31,4 +34,4 @@ class UpdateScraper
 
 end
 
-UpdateScraper.new
+UpdateScraper.new.letters_scrape
