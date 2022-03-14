@@ -14,6 +14,16 @@ class UpdateScraper
         File.delete('./lib/business_list.csv') if File.exist?('./lib/business_list.csv')
         @list = CSV.open("./lib/business_list.csv", "w")
         @list << ["Company Name", "link"] #headers
+        update
+    end
+
+    def update
+        letters_scrape
+        @letters.each do |letter|
+            pages_scrape(letter)
+            update_business_list
+        end
+        puts "Successfully updated!!"
     end
 
     def letters_scrape
@@ -43,3 +53,4 @@ class UpdateScraper
     end
 end
 
+UpdateScraper.new
