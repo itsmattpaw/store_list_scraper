@@ -17,23 +17,37 @@ class LocationScraper
         @@base
     end
 
-    def page_scrape(page)
-        doc = Nokogiri::HTML5(URI.open(page))
-        doc.css(".main-block a").each do |lk| #pull all links from main body 
-          j = lk.attribute("href").text #look at only the url text
-          case j.split("/").length 
-          when 3 
-            @state_pages << j
-          when 4
-            @city_pages << j
-          when 5
-            @loc_pages << j
-          end
+    def page_scrape(page, type = 'all')
+        begin
+            doc = Nokogiri::HTML5(URI.open(page))
+            doc.css(".main-block a").each do |lk| #pull all links from main body 
+                j = lk.attribute("href").text #look at only the url text
+                case type
+                when 'all'
+                    case j.split("/").length
+                    when 3 
+                        @state_pages << j
+                    when 4
+                        @city_pages << j
+                    when 5
+                        @loc_pages << j
+                    end
+                when 'state'
+                    case j.split("/").length
+                    when 4
+                        @city_pages << j
+                    when 5
+                        @loc_pages << j
+                    end
+                when 'city'
+                    case j.split("/").length
+                    when 5
+                        @loc_pages << j
+                    end
+                end
+            end
+        rescue #OpenURI::HTTPError => e
         end
-        rescue OpenURI::HTTPError => e
-            #if e.message == '404 Not Found'
-            #    puts "404"
-            #end
       end
 
     #when running a store, the first table of links will
@@ -48,18 +62,22 @@ class LocationScraper
         if @state_pages.length > 0 #if state links avaliable, clean other arrays and scrape each state
             @city_pages.clear
             @loc_pages.clear
-            linked_page_scrape(@state_pages)
-            linked_page_scrape(@city_pages)
+            linked_page_scrape(@state_pages,'state')
+            linked_page_scrape(@city_pages,'city')
         elsif @city_pages.length > 0
-            linked_page_scrape(@city_pages)
-        elsif @loc_pages.length > 0
-            #create stores
+            linked_page_scrape(@city_pages,'city')
         end
       end
 
-      def linked_page_scrape(array)
+      def linked_page_scrape(array,type)
+        total = array.length
+        i = 0
         array.each do |page|
-          page_scrape("#{@@base}#{page}")
+            i += 1
+            page_scrape("#{@@base}#{page}","#{type}")
+            prog = (i.to_f/total.to_f)*100
+            puts "Array Progress: #{i}/#{total}"
+            puts prog.round(2)
         end
       end
 
