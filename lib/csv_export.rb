@@ -17,4 +17,9 @@ class CSVexport
         c.close()
     end
 
+    def self.business_list_check(company)
+        #check for business existance on file
+
+    end
+
 end
