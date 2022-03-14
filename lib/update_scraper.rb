@@ -12,8 +12,8 @@ class UpdateScraper
         @letters = [] #array of links for each letter group
         @pages = [] #array to store pages for each letter
         File.delete('./lib/business_list.csv') if File.exist?('./lib/business_list.csv')
-        c = CSV.open("./lib/business_list.csv", "w")
-        c << ["Company Name", "link"] #headers
+        @list = CSV.open("./lib/business_list.csv", "w")
+        @list << ["Company Name", "link"] #headers
     end
 
     def letters_scrape
@@ -34,8 +34,12 @@ class UpdateScraper
 
     def update_business_list
         #scrape all business names and corresponding links
+        @pages.each do |lk|
+            doc = Nokogiri::HTML5(URI.open("#{@base}#{lk}"))
+            j = doc.css('.main-block .col-half a').each do |biz|
+                @list << [biz.text, biz.attribute('href').text]
+            end
+        end
     end
-
 end
 
-UpdateScraper.new.pages_scrape('/store/starts-a/page-1')
