@@ -13,7 +13,6 @@ class CommandLineInterface
     end
 
     def menu
-        puts ""
         puts "What are we interested in accomplishing today?"
         puts "1) New Scrape"
         puts "2) Update Business List"
@@ -25,7 +24,7 @@ class CommandLineInterface
             list_update
         elsif input == 3
             puts ""
-            puts "(◕‿◕)"
+            puts "(⌐■_■)ノ"
             puts "Goodbye friend!"
             exit
         else
@@ -84,9 +83,13 @@ class CommandLineInterface
         if confirmation == 'y'
             puts ""
             puts "(°ロ°)☝"
+            puts "What would you like to name the file?"
+            fileName = gets.strip
+            puts "..."
+            puts "◉_◉"
             puts "Exporting now, this can take awhile. I will alert when done."
             a.create_stores
-            CSVexport.locations_export("test")
+            CSVexport.locations_export(fileName)
             puts "Export Completed Successfully!"
         else
             puts ""
