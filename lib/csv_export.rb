@@ -19,7 +19,10 @@ class CSVexport
 
     def self.business_list_check(company)
         #check for business existance on file
-
+        CSV.foreach("./lib/business_list.csv") do |row|
+            if row[0] == company
+                return row[1]
+            end
+        end
     end
-
 end

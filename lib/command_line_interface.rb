@@ -29,7 +29,7 @@ class CommandLineInterface
             exit
         else
             puts ""
-            puts "(￣ｰ￣)"
+            puts "(ರ_ರ)"
             puts "That is not a valid input.."
             puts ""
             menu
