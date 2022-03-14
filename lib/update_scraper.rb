@@ -20,12 +20,16 @@ class UpdateScraper
         #scrape all main links for letters group
         doc = Nokogiri::HTML5(URI.open('https://storefound.org/store/starts-a/page-1'))
         doc.css('.letter-block a').each do |lk|
-            @pages << lk.attribute('href').text
+            @letters << lk.attribute('href').text
         end
     end
 
-    def pages_scrape
+    def pages_scrape(letter_link)
         #scrape all page links for each letter group
+        doc = Nokogiri::HTML5(URI.open("#{@base}#{letter_link}"))
+        doc.css('.pagination a').each do |lk|
+            @pages << lk.attribute('href').text
+        end
     end
 
     def update_business_list
@@ -34,4 +38,4 @@ class UpdateScraper
 
 end
 
-UpdateScraper.new.letters_scrape
+UpdateScraper.new.pages_scrape('/store/starts-a/page-1')
