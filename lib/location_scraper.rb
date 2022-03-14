@@ -32,14 +32,14 @@ class LocationScraper
                     when 5
                         @loc_pages << j
                     end
-                when 'state'
+                when 'State'
                     case j.split("/").length
                     when 4
                         @city_pages << j
                     when 5
                         @loc_pages << j
                     end
-                when 'city'
+                when 'City'
                     case j.split("/").length
                     when 5
                         @loc_pages << j
@@ -62,10 +62,10 @@ class LocationScraper
         if @state_pages.length > 0 #if state links avaliable, clean other arrays and scrape each state
             @city_pages.clear
             @loc_pages.clear
-            linked_page_scrape(@state_pages,'state')
-            linked_page_scrape(@city_pages,'city')
+            linked_page_scrape(@state_pages,'State')
+            linked_page_scrape(@city_pages,'City')
         elsif @city_pages.length > 0
-            linked_page_scrape(@city_pages,'city')
+            linked_page_scrape(@city_pages,'City')
         end
       end
 
@@ -76,25 +76,33 @@ class LocationScraper
             i += 1
             page_scrape("#{@@base}#{page}","#{type}")
             prog = (i.to_f/total.to_f)*100
-            puts "Array Progress: #{i}/#{total}"
-            puts prog.round(2)
+            print "#{type} Progress: #{i}/#{total}\r"
+            print "#{prog.round(2)}% complete\r"
         end
       end
 
       def create_stores
+        total = @loc_pages.length
         i = 1
         @loc_pages.each do |loc|
-          loc = Nokogiri::HTML5(URI.open("#{@@base}#{loc}"))
-            j = loc.css("li span")
-            info = {
-              idnum: i,
-              address: j[0].text,
-              city: j[1].text,
-              state: j[2].text,
-              zip: j[3].text
-            }
-            Store.new(info)
-            i += 1
+            begin
+                loc = Nokogiri::HTML5(URI.open("#{@@base}#{loc}"))
+                j = loc.css("li span")
+                info = {
+                    idnum: i,
+                    address: j[0].text,
+                    city: j[1].text,
+                    state: j[2].text,
+                    zip: j[3].text
+                }
+                Store.new(info)
+                prog = (i.to_f/total.to_f)*100
+                print "#{type} Progress: #{i}/#{total}\r"
+                print "#{prog.round(2)}% complete\r"
+                i += 1
+            rescue
+                next
+            end
         end
       end
 
