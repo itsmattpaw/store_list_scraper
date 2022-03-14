@@ -60,7 +60,7 @@ class CommandLineInterface
                 puts link
                 puts "Found the business! Want me to scrape a list? (y/n)"
                 confimation = gets.strip
-                confimation == 'y' ? LocationScraper.new(link) : exit
+                confimation == 'y' ? scrape(link) : exit
             else  
                 puts ""
                 puts "(●_●)"
@@ -70,6 +70,14 @@ class CommandLineInterface
                 name_check
             end
         end
+    end
+
+    def scrape(link)
+        a = LocationScraper.new("#{LocationScraper.base}#{link}")
+        a.page_scrape(a.link)
+        a.clean_out
+        puts "I found #{a.loc_pages.length} locations for this business."
+        puts "Would you like to export?"
     end
 
     def list_update

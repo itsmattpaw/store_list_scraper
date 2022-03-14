@@ -4,19 +4,21 @@ require 'pry'
 
 class LocationScraper 
     attr_accessor :link, :state_pages, :city_pages, :loc_pages
-    attr_reader :base
+    @@base = 'https://storefound.org/'
 
     def initialize(link)
         @link = link
-        @base = 'https://storefound.org/'
         @state_pages = []
         @city_pages = []
         @loc_pages = []
     end
 
+    def self.base
+        @@base
+    end
+
     def page_scrape(page)
         doc = Nokogiri::HTML5(URI.open(page))
-        binding.pry
         doc.css(".main-block a").each do |lk| #pull all links from main body 
           j = lk.attribute("href").text #look at only the url text
           case j.split("/").length 
@@ -47,6 +49,7 @@ class LocationScraper
             @city_pages.clear
             @loc_pages.clear
             linked_page_scrape(@state_pages)
+            linked_page_scrape(@city_pages)
         elsif @city_pages.length > 0
             linked_page_scrape(@city_pages)
         elsif @loc_pages.length > 0
@@ -56,13 +59,13 @@ class LocationScraper
 
       def linked_page_scrape(array)
         array.each do |page|
-          page_scrape("#{@base}#{page}")
+          page_scrape("#{@@base}#{page}")
         end
       end
 
       def create_stores
         @loc_pages.each do |loc|
-          loc = Nokogiri::HTML5(URI.open("#{@base}#{loc}"))
+          loc = Nokogiri::HTML5(URI.open("#{@@base}#{loc}"))
             j = loc.css("li span")
             info = {
               idnum: i,
