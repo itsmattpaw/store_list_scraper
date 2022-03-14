@@ -36,6 +36,7 @@ class UpdateScraper
 
     def pages_scrape(letter_link)
         #scrape all page links for each letter group
+        @pages.clear
         doc = Nokogiri::HTML5(URI.open("#{@base}#{letter_link}"))
         doc.css('.pagination a').each do |lk|
             @pages << lk.attribute('href').text
