@@ -75,19 +75,19 @@ class LocationScraper
         array.each do |page|
             i += 1
             page_scrape("#{@@base}#{page}","#{type}")
-            prog = (i.to_f/total.to_f)*100
-            print "#{type} Progress: #{i}/#{total}\r"
-            print "#{prog.round(2)}% complete\r"
+            print "#{((i.to_f/total.to_f)*100).round(2)}% | #{type} Progress: #{i}/#{total}\r"
         end
+        puts "#{((i.to_f/total.to_f)*100).round(2)}% | #{type} Progress: #{i}/#{total}\r"
       end
 
       def create_stores
         total = @loc_pages.length
         i = 1
+        binding.pry
         @loc_pages.each do |loc|
             begin
-                loc = Nokogiri::HTML5(URI.open("#{@@base}#{loc}"))
-                j = loc.css("li span")
+                st = Nokogiri::HTML5(URI.open("#{@@base}#{loc}"))
+                j = st.css("li span")
                 info = {
                     idnum: i,
                     address: j[0].text,
@@ -96,9 +96,7 @@ class LocationScraper
                     zip: j[3].text
                 }
                 Store.new(info)
-                prog = (i.to_f/total.to_f)*100
-                print "#{type} Progress: #{i}/#{total}\r"
-                print "#{prog.round(2)}% complete\r"
+                print "#{((i.to_f/total.to_f)*100).round(2)}% | Progress: #{i}/#{total}\r"
                 i += 1
             rescue
                 next
