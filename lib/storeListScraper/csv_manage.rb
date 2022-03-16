@@ -1,5 +1,5 @@
 
-class ListScraper::CSVexport
+class ListScraper::CSVmanager
 
     def self.locations_export(name)
         c = CSV.open("#{name}.csv", "w")

@@ -1,7 +1,7 @@
 
 require_relative "storeListScraper/version"
 require_relative "storeListScraper/cli"
-require_relative "storeListScraper/csv_export"
+require_relative "storeListScraper/csv_manage"
 require_relative "storeListScraper/location_scraper"
 require_relative "storeListScraper/store"
 require_relative "storeListScraper/update_scraper"

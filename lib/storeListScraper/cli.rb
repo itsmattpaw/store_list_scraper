@@ -38,7 +38,7 @@ class ListScraper::CLI
             menu
         else  
             #check business list for name
-            link = ListScraper::CSVexport.business_list_check(input)
+            link = ListScraper::CSVmanager.business_list_check(input)
             if link != nil
                 puts "\n( ﾟヮﾟ)\nFound the business! Want me to scrape a list? (y/n)"
                 confimation = gets.strip
@@ -61,7 +61,7 @@ class ListScraper::CLI
             fileName = gets.strip
             puts "...\n◉_◉\nExporting now, this can take awhile. I will alert when done."
             a.create_stores
-            ListScraper::CSVexport.locations_export(fileName)
+            ListScraper::CSVmanager.locations_export(fileName)
             puts "Export Completed Successfully!"
         else
             puts "\n(⌐■_■)ノ\nI hope you have a great day!\nGoodbye"
