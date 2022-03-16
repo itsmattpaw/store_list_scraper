@@ -17,7 +17,7 @@ class ListScraper::CSVmanager
     end
 
     def self.list_view_by_letter(letter)
-        g = CSV.read("./lib/storeListScraper/business_list.csv").collect {|row| row[0].starts_with?("#{letter.downcase}") || row[0].starts_with?("#{letter.upcase}")}
+        g = CSV.read("./lib/storeListScraper/business_list.csv").select {|row| row[0].downcase.start_with?("#{letter.downcase}")}
         puts g
     end
 
