@@ -58,6 +58,7 @@ class ListScraper::CLI
             ListScraper::CSVmanager.list_view_by_letter(gets.strip)
         when 2
             puts "Please type the keyword as you expect to see it in the business name.\n(example: 'Jimmy's Pizza' contains 'Pizza'"
+            ListScraper::CSVmanager.list_view_by_search(gets.strip)
         when 3
             menu
         else
@@ -70,12 +71,12 @@ class ListScraper::CLI
         a = ListScraper::LocationScraper.new("#{ListScraper::LocationScraper.base}#{link}")
         a.page_scrape(a.link)
         a.clean_out
-        puts "\n( ◕‿◕)\nI found #{a.loc_pages.length} locations for this business.\nWould you like to export? (y/n)"
+        puts "\n( ◕‿◕)\nI found #{a.loc_pages.length} locations across #{a.state_pages.length}for this business.\nWould you like to export? (y/n)"
         confirmation = gets.strip
         if confirmation == 'y'
             puts "\n(°ロ°)☝\nWhat would you like to name the file?"
             fileName = gets.strip
-            puts "...\n◉_◉\nExporting now, this can take awhile. I will alert when done."
+            puts "...\n( ◉_◉)\nExporting now, this can take awhile. I will alert when done."
             a.create_stores
             ListScraper::CSVmanager.locations_export(fileName)
             puts "Export Completed Successfully!"

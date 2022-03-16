@@ -22,6 +22,7 @@ class ListScraper::CSVmanager
     end
 
     def self.list_view_by_search(word)
-
+        g = word
+        puts g
     end
 end
