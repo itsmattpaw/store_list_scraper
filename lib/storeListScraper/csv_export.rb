@@ -1,5 +1,3 @@
-#require 'pry'
-#require 'csv'
 
 class ListScraper::CSVexport
 

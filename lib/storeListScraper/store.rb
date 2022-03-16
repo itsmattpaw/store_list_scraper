@@ -1,6 +1,3 @@
-#require 'nokogiri'
-#require 'open-uri'
-#require 'pry'
 
 class ListScraper::Store  
     attr_accessor :idnum, :address, :city, :state, :zip 

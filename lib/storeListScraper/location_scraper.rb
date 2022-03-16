@@ -1,6 +1,3 @@
-#require 'nokogiri'
-#require 'open-uri'
-#require 'pry'
 
 class ListScraper::LocationScraper 
     attr_accessor :link, :state_pages, :city_pages, :loc_pages

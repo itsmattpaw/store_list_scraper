@@ -1,7 +1,3 @@
-#require 'nokogiri'
-#require 'open-uri'
-#require 'csv'
-#require 'pry'
 
 class ListScraper::UpdateScraper 
     attr_accessor :letters, :pages, :list
