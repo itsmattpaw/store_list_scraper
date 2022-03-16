@@ -1,8 +1,8 @@
-require 'nokogiri'
-require 'open-uri'
-require 'pry'
+#require 'nokogiri'
+#require 'open-uri'
+#require 'pry'
 
-class Store  
+class ListScraper::Store  
     attr_accessor :idnum, :address, :city, :state, :zip 
     @@all = []
 

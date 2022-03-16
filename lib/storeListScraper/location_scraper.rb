@@ -1,10 +1,10 @@
-require 'nokogiri'
-require 'open-uri'
-require 'pry'
+#require 'nokogiri'
+#require 'open-uri'
+#require 'pry'
 
-class LocationScraper 
+class ListScraper::LocationScraper 
     attr_accessor :link, :state_pages, :city_pages, :loc_pages
-    @@base = 'https://storefound.org/'
+    @@base = 'https://storefound.org'
 
     def initialize(link)
         @link = link
@@ -83,7 +83,6 @@ class LocationScraper
       def create_stores
         total = @loc_pages.length
         i = 1
-        binding.pry
         @loc_pages.each do |loc|
             begin
                 st = Nokogiri::HTML5(URI.open("#{@@base}#{loc}"))
@@ -95,7 +94,7 @@ class LocationScraper
                     state: j[2].text,
                     zip: j[3].text
                 }
-                Store.new(info)
+                ListScraper::Store.new(info)
                 print "#{((i.to_f/total.to_f)*100).round(2)}% | Progress: #{i}/#{total}\r"
                 i += 1
             rescue

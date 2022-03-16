@@ -1,10 +1,5 @@
-require_relative '../lib/csv_export.rb'
-require_relative '../lib/location_scraper.rb'
-require_relative '../lib/store.rb'
-require_relative '../lib/update_scraper.rb'
-require 'pry'
 
-class CommandLineInterface
+class ListScraper::CLI
 
     def start #greet user with menu
         puts ""
@@ -51,7 +46,7 @@ class CommandLineInterface
             menu
         else  
             #check business list for name
-            link = CSVexport.business_list_check(input)
+            link = ListScraper::CSVexport.business_list_check(input)
             if link != nil
                 #run scrape on business
                 puts ""
@@ -72,7 +67,7 @@ class CommandLineInterface
     end
 
     def scrape(link)
-        a = LocationScraper.new("#{LocationScraper.base}#{link}")
+        a = ListScraper::LocationScraper.new("#{ListScraper::LocationScraper.base}#{link}")
         a.page_scrape(a.link)
         a.clean_out
         puts ""
@@ -89,7 +84,7 @@ class CommandLineInterface
             puts "◉_◉"
             puts "Exporting now, this can take awhile. I will alert when done."
             a.create_stores
-            CSVexport.locations_export(fileName)
+            ListScraper::CSVexport.locations_export(fileName)
             puts "Export Completed Successfully!"
         else
             puts ""
@@ -105,9 +100,7 @@ class CommandLineInterface
         puts "⊙﹏⊙"
         puts "Running update, this could take several minutes.."
         #run update scrape
-        UpdateScraper.new
+        ListScraper::UpdateScraper.new
     end
 
 end
-
-CommandLineInterface.new.start

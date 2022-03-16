@@ -1,9 +1,9 @@
-require 'nokogiri'
-require 'open-uri'
-require 'csv'
-require 'pry'
+#require 'nokogiri'
+#require 'open-uri'
+#require 'csv'
+#require 'pry'
 
-class UpdateScraper 
+class ListScraper::UpdateScraper 
     attr_accessor :letters, :pages, :list
     attr_reader :base
 
