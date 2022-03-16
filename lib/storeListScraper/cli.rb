@@ -2,65 +2,49 @@
 class ListScraper::CLI
 
     def start #greet user with menu
-        puts ""
-        puts "Hello user! ヽ(‘ ∇‘ )ノ"
+        puts "\nHello user! ヽ(‘ ∇‘ )ノ"
         menu
     end
 
     def menu
-        puts "What are we interested in accomplishing today?"
-        puts "1) New Scrape"
-        puts "2) Update Business List"
-        puts "3) Exit Program"
-        input = gets.strip.to_i
-        if input == 1
+        puts "\nWhat are we interested in accomplishing today?\n1) New Scrape\n2) View Business List\n3) Update Business List\n4) Exit Program\n"
+        case gets.strip.to_i
+        when 1
             new_scrape
-        elsif input == 2
+        when 2
+            puts "viewing"
+        when 3
             list_update
-        elsif input == 3
-            puts ""
-            puts "(⌐■_■)ノ"
-            puts "Goodbye friend!"
+        when 4
+            puts "\n(⌐■_■)ノ\nGoodbye friend!\n"
             exit
         else
-            puts ""
-            puts "(ರ_ರ)"
-            puts "That is not a valid input.."
-            puts ""
+            puts "\n(ರ_ರ)\nThat is not a valid input.."
             menu
         end
     end
 
     def new_scrape
-        puts ""
-        puts "(∪ ◡ ∪)"
-        puts "So you want to run a scrape?"
-        puts "Please type a company name as found in my Business List."
-        puts "Or 'menu' to return to the main menu"
+        puts "\n(∪ ◡ ∪)\nSo you want to run a scrape?\nPlease type a company name as found in my Business List.\nOR type 'list' to view the Business List\nOr 'menu' to return to the main menu"
         name_check
     end
 
     def name_check
         input = gets.strip
-        if input == "menu"
+        case input
+        when "list"
+            puts "viewing"
+        when "menu"
             menu
         else  
             #check business list for name
             link = ListScraper::CSVexport.business_list_check(input)
             if link != nil
-                #run scrape on business
-                puts ""
-                puts "( ﾟヮﾟ)"
-                puts link
-                puts "Found the business! Want me to scrape a list? (y/n)"
+                puts "\n( ﾟヮﾟ)\nFound the business! Want me to scrape a list? (y/n)"
                 confimation = gets.strip
                 confimation == 'y' ? scrape(link) : exit
-            else  
-                puts ""
-                puts "(●_●)"
-                puts "Sorry, but it doesn't look like that's on the list."
-                puts "Please enter another name" 
-                puts "OR type 'menu' to return to the main menu"
+            else
+                puts "\n(●_●)\nSorry, but it doesn't look like that's on the list.\nPlease enter another name\nOR type 'list' to view my Business List\nOR type 'menu' to return to the main menu"
                 name_check
             end
         end
@@ -70,36 +54,23 @@ class ListScraper::CLI
         a = ListScraper::LocationScraper.new("#{ListScraper::LocationScraper.base}#{link}")
         a.page_scrape(a.link)
         a.clean_out
-        puts ""
-        puts "( ◕‿◕)"
-        puts "I found #{a.loc_pages.length} locations for this business."
-        puts "Would you like to export? (y/n)"
+        puts "\n( ◕‿◕)\nI found #{a.loc_pages.length} locations for this business.\nWould you like to export? (y/n)"
         confirmation = gets.strip
         if confirmation == 'y'
-            puts ""
-            puts "(°ロ°)☝"
-            puts "What would you like to name the file?"
+            puts "\n(°ロ°)☝\nWhat would you like to name the file?"
             fileName = gets.strip
-            puts "..."
-            puts "◉_◉"
-            puts "Exporting now, this can take awhile. I will alert when done."
+            puts "...\n◉_◉\nExporting now, this can take awhile. I will alert when done."
             a.create_stores
             ListScraper::CSVexport.locations_export(fileName)
             puts "Export Completed Successfully!"
         else
-            puts ""
-            puts "(⌐■_■)ノ"
-            puts "I hope you have a great day!"
-            puts "Goodbye"
+            puts "\n(⌐■_■)ノ\nI hope you have a great day!\nGoodbye"
             exit
         end
     end
 
     def list_update
-        puts ""
-        puts "⊙﹏⊙"
-        puts "Running update, this could take several minutes.."
-        #run update scrape
+        puts "\n⊙﹏⊙\nRunning update, this could take several minutes.."
         ListScraper::UpdateScraper.new
     end
 
