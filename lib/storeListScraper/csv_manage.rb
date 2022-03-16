@@ -15,4 +15,13 @@ class ListScraper::CSVmanager
         h = CSV.read("./lib/storeListScraper/business_list.csv").find {|row| row[0] == "#{company}"}
         h != nil ? h[1] : nil
     end
+
+    def self.list_view_by_letter(letter)
+        g = CSV.read("./lib/storeListScraper/business_list.csv").collect {|row| row[0].starts_with?("#{letter.downcase}") || row[0].starts_with?("#{letter.upcase}")}
+        puts g
+    end
+
+    def self.list_view_by_search(word)
+
+    end
 end

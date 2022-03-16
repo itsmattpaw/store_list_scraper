@@ -12,7 +12,7 @@ class ListScraper::CLI
         when 1
             new_scrape
         when 2
-            puts "viewing"
+            list_view
         when 3
             list_update
         when 4
@@ -33,7 +33,7 @@ class ListScraper::CLI
         input = gets.strip
         case input
         when "list"
-            puts "viewing"
+            list_view
         when "menu"
             menu
         else  
@@ -47,6 +47,21 @@ class ListScraper::CLI
                 puts "\n(●_●)\nSorry, but it doesn't look like that's on the list.\nPlease enter another name\nOR type 'list' to view my Business List\nOR type 'menu' to return to the main menu"
                 name_check
             end
+        end
+    end
+
+    def list_view
+        puts "\nThis is a list of 27,000+ businesses,\nHow would you like to view it?\n1) select a letter group\n2) search a keyword\n3) return to main menu"
+        case gets.strip.to_i
+        when 1
+            puts "Please type letter(s) you want at the START of the business name:"
+        when 2
+            puts "Please type the keyword as you expect to see it in the business name.\n(example: 'Jimmy's Pizza' contains 'Pizza'"
+        when 3
+            menu
+        else
+            puts "\n(ರ_ರ)\nThat is not a valid input.."
+            list_view
         end
     end
 
