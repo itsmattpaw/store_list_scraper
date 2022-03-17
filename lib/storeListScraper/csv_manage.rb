@@ -18,11 +18,11 @@ class ListScraper::CSVmanager
 
     def self.list_view_by_letter(letter)
         g = CSV.read("./lib/storeListScraper/business_list.csv").select {|row| row[0].downcase.start_with?("#{letter.downcase}")}
-        puts g
+        g.each {|item| puts item[0]}
     end
 
     def self.list_view_by_search(word)
-        g = word
-        puts g
+        g = CSV.read("./lib/storeListScraper/business_list.csv").select {|row| row[0].downcase.include?("#{word.downcase}")}
+        g.each {|item| puts item[0]}
     end
 end

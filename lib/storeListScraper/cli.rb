@@ -56,9 +56,11 @@ class ListScraper::CLI
         when 1
             puts "Please type letter(s) you want at the START of the business name:"
             ListScraper::CSVmanager.list_view_by_letter(gets.strip)
+            menu
         when 2
             puts "Please type the keyword as you expect to see it in the business name.\n(example: 'Jimmy's Pizza' contains 'Pizza'"
             ListScraper::CSVmanager.list_view_by_search(gets.strip)
+            menu
         when 3
             menu
         else
