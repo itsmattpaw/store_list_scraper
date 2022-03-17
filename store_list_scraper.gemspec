@@ -9,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.email = ["itsmattpaw@gmail.com"]
 
   spec.summary = "Scrape Store Address lists from StoreFound.org."
-  spec.description = "Scrape Store Address lists from StoreFound.org."
+  spec.description = "Scrape Store Address lists from StoreFound.org and export into a CSV file for distribution or use withe other softwares such as ESRI ARC GIS."
   spec.homepage = "http://www.bob.com"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 2.6.0"
@@ -35,7 +35,7 @@ Gem::Specification.new do |spec|
   # spec.add_dependency "example-gem", "~> 1.0"
   spec.add_development_dependency "rake", "~> 13.0"
   spec.add_development_dependency "pry"
-  spec.add_dependency "Nokogiri"
+  spec.add_dependency 'nokogiri', '~> 1.13'
   spec.add_dependency "open-uri"
   spec.add_dependency "csv"
 

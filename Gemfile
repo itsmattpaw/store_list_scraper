@@ -7,6 +7,6 @@ gemspec
 
 gem "rake", "~> 13.0"
 gem 'pry'
-gem 'Nokogiri'
-gem 'Open-URI'
+gem 'nokogiri', '~> 1.13'
+gem 'open-uri'
 gem 'csv'
