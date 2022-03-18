@@ -56,11 +56,11 @@ class ListScraper::CLI
         when 1
             puts "Please type letter(s) you want at the START of the business name:"
             ListScraper::CSVmanager.list_view_by_letter(gets.strip)
-            menu
+            list_validation
         when 2
             puts "Please type the keyword as you expect to see it in the business name.\n(example: 'Jimmy's Pizza' contains 'Pizza'"
             ListScraper::CSVmanager.list_view_by_search(gets.strip)
-            menu
+            list_validation
         when 3
             menu
         else
@@ -69,11 +69,25 @@ class ListScraper::CLI
         end
     end
 
+    def list_validation
+        puts "\nSelect the number next to the business name you want to scrape\n OR type 'menu' to return to main menu."
+        input = gets.strip
+        if input == "menu"
+            menu
+        elsif ListScraper::CSVmanager.search_results[input.to_i] != nil
+             puts "Confirm you want to scrape (y/n):\n#{ListScraper::CSVmanager.search_results[input.to_i][0]}"
+             gets.strip.downcase == 'y' ? scrape(ListScraper::CSVmanager.search_results[input.to_i][1]): list_validation
+        else
+            puts "\n(ರ_ರ)\nThat is not a valid input.."
+            list_validation
+        end
+    end
+
     def scrape(link)
         a = ListScraper::LocationScraper.new("#{ListScraper::LocationScraper.base}#{link}")
         a.page_scrape(a.link)
         a.clean_out
-        puts "\n( ◕‿◕)\nI found #{a.loc_pages.length} locations across #{a.state_pages.length}for this business.\nWould you like to export? (y/n)"
+        puts "\n( ◕‿◕)\nI found #{a.loc_pages.length} locations for this business.\nWould you like to export? (y/n)"
         confirmation = gets.strip
         if confirmation == 'y'
             puts "\n(°ロ°)☝\nWhat would you like to name the file?"
