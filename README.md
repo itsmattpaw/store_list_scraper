@@ -1,8 +1,6 @@
 # StoreListScraper
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/store_list_scraper`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Welcome to my gem! This was designed to pull store location data from a website and provide a CSV export for use as an import file into another geocoding platform. The website is StoreFound.org and is home to over 27,000 business names and addresses. This gem already contains a csv file with a list of all the potential businesses a list can be scraped for. As a user you can: Run a scrape to export a store list, view the list of avaliable businesses, or update the business list.
 
 ## Installation
 
@@ -32,7 +30,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/store_list_scraper. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/[USERNAME]/store_list_scraper/blob/master/CODE_OF_CONDUCT.md).
+Bug reports and pull requests are welcome on GitHub at https://github.com/itsmattpaw/store_list_scraper. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [code of conduct](https://github.com/itsmattpaw/store_list_scraper/blob/master/CODE_OF_CONDUCT.md).
 
 ## License
 
@@ -40,4 +38,4 @@ The gem is available as open source under the terms of the [MIT License](https:/
 
 ## Code of Conduct
 
-Everyone interacting in the StoreListScraper project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/store_list_scraper/blob/master/CODE_OF_CONDUCT.md).
+Everyone interacting in the StoreListScraper project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/itsmattpaw/store_list_scraper/blob/master/CODE_OF_CONDUCT.md).
