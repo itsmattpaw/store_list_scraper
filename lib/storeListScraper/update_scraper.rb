@@ -7,8 +7,8 @@ class ListScraper::UpdateScraper
         @base = 'https://storefound.org/'
         @letters = [] #array of links for each letter group
         @pages = [] #array to store pages for each letter
-        File.delete('./lib/storeListScrapper/business_list.csv') if File.exist?('./lib/storeListScrapper/business_list.csv')
-        @list = CSV.open("./lib/storeListScrapper/business_list.csv", "w")
+        File.delete('./lib/business_list.csv') if File.exist?('./lib/business_list.csv')
+        @list = CSV.open("./lib/storeListScraper/business_list.csv", "w")
         @list << ["Company Name", "link"] #headers
         update
     end
